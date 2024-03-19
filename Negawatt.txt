@@ -1,0 +1,27 @@
+local function highlightOtherPlayers()
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+    local Mouse = LocalPlayer:GetMouse()
+
+    while true do
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer then
+                local Character = player.Character
+                if Character then
+                    local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
+                    if HumanoidRootPart then
+                        local distance = (HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude
+                        if distance <= 20 then
+                            HumanoidRootPart.BrickColor = BrickColor.new("Bright red")
+                        else
+                            HumanoidRootPart.BrickColor = BrickColor.new("White")
+                        end
+                    end
+                end
+            end
+        end
+        wait(0.1)
+    end
+end
+
+highlightOtherPlayers()
